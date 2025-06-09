@@ -1,7 +1,7 @@
 import express from "express";
-import { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import routes from "./routes";
+import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
 
@@ -13,9 +13,6 @@ app.use(express.json());
 app.use("/api", routes);
 
 //Middleware handling errors
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.log(err.stack);
-  res.status(500).json({ error: "something went wrog" });
-});
+app.use(errorHandler);
 
 export default app;
