@@ -1,14 +1,11 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import habitRouter from "./habits";
+import userRouter from "./user";
 
 const router = Router();
 
-router.get("/health", (req: Request, res: Response) => {
-  res.json({ message: "API is Healthy" });
-});
-
-router.use("/habits", habitRouter);
-// router.use("/users", usersRouter);
+router.use("/habit", habitRouter);
+router.use("/user", userRouter);
 // router.use("/habits-logs", habits_logsRouter);
 
 export default router;
