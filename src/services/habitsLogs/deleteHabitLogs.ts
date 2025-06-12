@@ -1,9 +1,9 @@
 import { dbPool } from "../../db";
+import { deletHabitLogQuery } from "../../queries/habitLogsQueries";
 
 export async function deleteHabitLogs(habit_id: number, id: number) {
   const VALUES = [habit_id, id];
-  const QUERY = "DELETE FROM Habits_logs WHERE habit_id = ? AND id = ?";
 
-  const [result] = await dbPool.execute(QUERY, VALUES);
+  const [result] = await dbPool.execute(deletHabitLogQuery, VALUES);
   return result;
 }

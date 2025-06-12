@@ -1,9 +1,9 @@
 import { dbPool } from "../../db";
+import { getAllHabitLogsQuery } from "../../queries/habitLogsQueries";
 
 export async function getHabitLogs(id: number) {
   const VALUES = [id];
-  const QUERY = `SELECT * FROM Habit_logs WHERE habit_id = ?`;
 
-  const [result] = await dbPool.execute(QUERY, VALUES);
+  const [result] = await dbPool.execute(getAllHabitLogsQuery, VALUES);
   return result;
 }

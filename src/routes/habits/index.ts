@@ -24,20 +24,19 @@ habitRouter.get(
 //get habit
 habitRouter.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await getHabitController(Number(id));
+  const { user_id } = req.body;
+  const result = await getHabitController(Number(id), Number(user_id));
   res.json(result);
 });
 
 //update habit
-habitRouter.put("/:id", async (req: Request, res: Response) => {
+habitRouter.patch("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
   const { user_id, name, description } = req.body;
-  const updatedHabit: habitType = {
-    id: Number(req.params.id),
-    user_id: user_id,
-    name: name,
-    description: description,
-  };
-  const result = await updateHabitController(updatedHabit);
+  const updatedHabit: Partial<habitType> = {};
+  if (name !== undefined) updatedHabit.name = name;
+  if (description !== undefined) updatedHabit.description = description;
+  const result = await updateHabitController(updatedHabit, Number(id), user_id);
   res.json(result);
 });
 

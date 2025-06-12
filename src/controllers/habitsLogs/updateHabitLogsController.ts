@@ -1,7 +1,5 @@
-import {
-  handleErrorResponse,
-  handleSuccessResponse,
-} from "../../utils/responseHandler";
+/* eslint-disable prettier/prettier */
+import { handleSuccessResponse } from "../../utils/responseHandler";
 import { updateHabitLogs } from "../../services/habitsLogs";
 
 export async function updateHabitLogsControllers(
@@ -10,11 +8,6 @@ export async function updateHabitLogsControllers(
   is_completed: boolean
 ) {
   const SUCCES_RESPONSE = "Habit Logs updated successfully";
-  const ERROR_RESPONSE = "Error updating habit logs";
-  try {
-    const result = await updateHabitLogs(habit_id, id, is_completed);
-    return handleSuccessResponse(result, SUCCES_RESPONSE);
-  } catch (error) {
-    return handleErrorResponse(error, ERROR_RESPONSE);
-  }
+  const result = await updateHabitLogs(habit_id, id, is_completed);
+  return handleSuccessResponse(result, SUCCES_RESPONSE);
 }

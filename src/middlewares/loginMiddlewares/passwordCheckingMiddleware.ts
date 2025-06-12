@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { comparePasswords } from "../../utils/passwordCheck";
 import { Request, Response, NextFunction } from "express";
 

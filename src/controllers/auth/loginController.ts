@@ -4,11 +4,12 @@ import { jwtGenerator } from "../../utils/jwtGenerator";
 import { handleSuccessResponse } from "../../utils/responseHandler";
 
 export async function loginController(req: Request, res: Response) {
-  const { id, name, email } = req.body;
+  const { email } = req.body;
+  const { id, name } = req.body.user[0];
+
   const token = jwtGenerator(id);
   const data = {
-    user: { name: name, email: email, id: id },
-    token: token,
+    user: { name: name, email: email, id: id, token: token },
   };
   res.json(handleSuccessResponse(data, "User returned successfully"));
 }

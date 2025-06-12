@@ -1,17 +1,16 @@
 /* eslint-disable prettier/prettier */
 import { dbPool } from "../../db";
 import { habitType } from "../../types/responseTypes";
+import { dynamicQuery } from "../../utils/dynamicQuery";
 
-export async function updateHabit({
-  id,
-  user_id,
-  name,
-  description,
-}: habitType) {
-  const VALUES = [name, description, id, user_id];
-  const QUERY = `UPDATE Habits SET name = ?, description = ? WHERE id = ? AND user_id = ?;)`;
-
-  const [result] = await dbPool.execute(QUERY, VALUES);
+export async function updateHabit(
+  habit: Partial<habitType>,
+  id: number,
+  user_id: number
+) {
+  const TABLE = "Habits";
+  const { query, values } = await dynamicQuery(habit, id, TABLE, user_id);
+  const [result] = await dbPool.execute(query, values);
 
   return result;
 }

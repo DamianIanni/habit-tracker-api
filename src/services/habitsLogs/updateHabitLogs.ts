@@ -1,4 +1,6 @@
+/* eslint-disable prettier/prettier */
 import { dbPool } from "../../db";
+import { updateHabitLogQuery } from "../../queries/habitLogsQueries";
 
 export async function updateHabitLogs(
   habit_id: number,
@@ -6,8 +8,7 @@ export async function updateHabitLogs(
   is_completed: boolean
 ) {
   const VALUES = [is_completed, habit_id, id];
-  const QUERY = "SET is_completed = ? WHERE habit_id = ? AND id = ?";
 
-  const [result] = await dbPool.execute(QUERY, VALUES);
+  const [result] = await dbPool.execute(updateHabitLogQuery, VALUES);
   return result;
 }
