@@ -1,25 +1,25 @@
 import { Router, Request, Response } from "express";
-import { UserType, UserInputType } from "../../types/userType";
+// import { UserInputType } from "../../types/userType";
 import {
-  insertUserController,
+  // insertUserController,
   updateUserController,
-  getUserController,
+  // getUserController,
   deleteUserController,
 } from "../../controllers/users";
 
 const userRouter = Router();
 
-//Create user
-userRouter.post("/", async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  const user: UserInputType = {
-    name: name,
-    email: email,
-    password: password,
-  };
-  const result = await insertUserController(user);
-  res.json(result);
-});
+// //Create user
+// userRouter.post("/", async (req: Request, res: Response) => {
+//   const { name, email, password } = req.body;
+//   const user: UserInputType = {
+//     name: name,
+//     email: email,
+//     password: password,
+//   };
+//   const result = await insertUserController(user);
+//   res.json(result);
+// });
 
 //Modify user
 userRouter.patch("/:id", async (req: Request, res: Response) => {
@@ -35,11 +35,11 @@ userRouter.patch("/:id", async (req: Request, res: Response) => {
 });
 
 //Get user
-userRouter.get("/:id", async (req: Request, res: Response) => {
-  const id = Number(req.params);
-  const result = await getUserController(id);
-  res.json(result);
-});
+// userRouter.get("/:id", async (req: Request, res: Response) => {
+//   const id = Number(req.params);
+//   const result = await getUserController(id);
+//   res.json(result);
+// });
 
 //Delete user
 userRouter.delete("/:id", async (req: Request, res: Response) => {

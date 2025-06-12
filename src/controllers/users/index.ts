@@ -1,11 +1,11 @@
-import { insertUserController } from "./insertUserController";
+// import { insertUserController } from "../auth/insertUserController";
 import { updateUserController } from "./updateUserController";
-import { getUserController } from "./getUserController";
+// import { getUserController } from "./getUserController";
 import { deleteUserController } from "./deleteUserController";
 
 export {
-  insertUserController,
+  // insertUserController,
   updateUserController,
-  getUserController,
+  // getUserController,
   deleteUserController,
 };

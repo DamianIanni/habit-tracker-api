@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes";
-import { errorHandler } from "./middlewares/errorHandler";
+import { errorGeneralHandler } from "./middlewares/errorGeneralHandler";
 
 const app = express();
 
@@ -13,6 +13,6 @@ app.use(express.json());
 app.use("/api", routes);
 
 //Middleware handling errors
-app.use(errorHandler);
+app.use(errorGeneralHandler);
 
 export default app;

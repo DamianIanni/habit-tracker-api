@@ -1,6 +1,6 @@
-import { insertUser } from "./insertUser";
+// import { insertUser } from "../auth/insertUser";
 import { updateUser } from "./updateUser";
-import { getUser } from "./getUser";
+// import { getUser } from "./getUser";
 import { deleteUser } from "./deleteUser";
 
-export { insertUser, updateUser, getUser, deleteUser };
+export { updateUser, deleteUser };
