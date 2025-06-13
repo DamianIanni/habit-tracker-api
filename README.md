@@ -231,5 +231,6 @@ The API should now be running at `http://localhost:<PORT>`.
 
 ## Contact
 
+- [LinkedIn](https://www.linkedin.com/in/damian-ianni-b50555205/)
 - [GitHub](https://github.com/DamianIanni)
 - 📧 [damiangussi@gmail.com](mailto:damiangussi@gmail.com)
