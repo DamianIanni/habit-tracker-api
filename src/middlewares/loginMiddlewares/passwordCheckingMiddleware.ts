@@ -7,8 +7,6 @@ export async function passwordCheckingMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  console.log("PASSWORDS", req.body);
-
   const plainPassword = req.body.password;
   const hashedPassword = req.body.user[0].password_hash;
 

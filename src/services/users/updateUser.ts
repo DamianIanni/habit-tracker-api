@@ -5,7 +5,6 @@ import { dynamicQuery } from "../../utils/dynamicQuery";
 
 export async function updateUser(id: number, user: Partial<UserInputType>) {
   const { query, values } = await dynamicQuery(user, id, "Users");
-  console.log(query, values);
 
   const [result] = await dbPool.execute(query, values);
 

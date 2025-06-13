@@ -3,8 +3,6 @@
 import { hashingPassword } from "./passwordHasher";
 
 function joinQuery(fields: string[]) {
-  console.log("Fields,", fields);
-
   if (fields.length === 0) return;
   if (fields.length <= 1) {
     return fields;

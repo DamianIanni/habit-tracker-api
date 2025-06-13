@@ -14,7 +14,6 @@ userRouter.patch("/", async (req: RequestWithUser, res: Response) => {
   if (name !== undefined) updatedFields.name = name;
   if (password !== undefined) updatedFields.password = name;
 
-  // console.log("ID DE EPERON", req.params.id);
   const id = req.user?.id;
 
   const result = await updateUserController(id, updatedFields);

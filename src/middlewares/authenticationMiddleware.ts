@@ -19,7 +19,6 @@ export async function authenticationMiddleware(
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET!) as MyJwtPayload;
-  console.log("TOKEN", decoded);
 
   req.user = decoded; // ahora está tipado gracias a la extensión
   next();

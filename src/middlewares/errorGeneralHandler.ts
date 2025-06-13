@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { Request, Response, NextFunction } from "express";
 import logger from "../utils/logger";

@@ -23,7 +23,6 @@ habitRouter.get("/all-habits", async (req: RequestWithUser, res: Response) => {
 habitRouter.get("/:id", async (req: RequestWithUser, res: Response) => {
   const { id } = req.params;
   const user_id = req.user?.id;
-  console.log("REQ REQ", user_id);
 
   const result = await getHabitController(Number(id), user_id);
   res.json(result);
@@ -43,7 +42,6 @@ habitRouter.patch("/:id", async (req: RequestWithUser, res: Response) => {
 
 //create habit
 habitRouter.post("/", async (req: RequestWithUser, res: Response) => {
-  console.log("REQ HEADERS", req.headers.authorization);
   const { name, description } = req.body;
   const user_id = req.user?.id;
   const habit: habitType = {

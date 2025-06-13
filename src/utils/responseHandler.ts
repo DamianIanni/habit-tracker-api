@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prettier/prettier */
 import { responseType } from "../types/responseTypes";
 
@@ -5,10 +6,12 @@ export function handleSuccessResponse(
   data: any,
   message: string
 ): responseType {
+  const isData = data.length > 0 ? true : false;
   return {
     success: true,
     data: data,
-    message: message,
+    message: isData ? message : "No data found",
+    // message: message,
   };
 }
 
