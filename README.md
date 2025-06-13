@@ -26,7 +26,7 @@ This API is built as part of a fullstack project to showcase backend development
 
 The project follows a layered architecture to ensure separation of concerns:
 
-<!-- <pre>  -->
+<pre> 
 
 src/
 ├── controllers/ # Handles incoming requests and delegates to services
@@ -40,7 +40,7 @@ src/
 ├── app.ts # Express application setup
 └── index.ts # Application entry point
 
-<!-- </pre> -->
+</pre>
 
 ## Setup and Installation
 
@@ -136,6 +136,12 @@ The API should now be running at `http://localhost:<PORT>`.
 - `DELETE /api/habit-logs/:logId` - Delete a habit log
 
 (Note: Adjust endpoint paths based on your actual routing in `src/routes`.)
+
+## Upcoming Features
+
+- Integration tests with Jest + Supertest
+- Unit tests for core services
+- CI setup for auto-testing (GitHub Actions)
 
 ## Contact
 
