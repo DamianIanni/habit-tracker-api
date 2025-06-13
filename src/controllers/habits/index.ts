@@ -41,7 +41,7 @@ export async function updateHabitController(
   id: number,
   user_id: number
 ) {
-  const SUCCESS_MESSAGE = "Habit deleted successfully";
+  const SUCCESS_MESSAGE = "Habit updated successfully";
   const allHabits = await updateHabit(updatedHabit, id, user_id);
   return handleSuccessResponse(allHabits, SUCCESS_MESSAGE);
 }

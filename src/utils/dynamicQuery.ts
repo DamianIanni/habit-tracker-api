@@ -3,8 +3,10 @@
 import { hashingPassword } from "./passwordHasher";
 
 function joinQuery(fields: string[]) {
+  console.log("Fields,", fields);
+
   if (fields.length === 0) return;
-  if (fields.length === 1) {
+  if (fields.length <= 1) {
     return fields;
   } else {
     return fields.join(", ");
@@ -38,9 +40,9 @@ export async function dynamicQuery(
   VALUES.push(id);
 
   if (user_id !== undefined && user_id !== null) {
-    fieldsToUpdate.push("user_id");
+    // fieldsToUpdate.push("user_id");
     VALUES.push(user_id);
-    whereUser_id += "AND user_id = ?";
+    whereUser_id += " AND user_id = ?";
   }
 
   return {

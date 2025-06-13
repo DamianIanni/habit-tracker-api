@@ -10,6 +10,7 @@ export async function updateHabit(
 ) {
   const TABLE = "Habits";
   const { query, values } = await dynamicQuery(habit, id, TABLE, user_id);
+
   const [result] = await dbPool.execute(query, values);
 
   return result;

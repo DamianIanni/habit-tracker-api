@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Router, Request, Response } from "express";
+import { Router, Response } from "express";
+import { RequestWithUser } from "../../types/requestWithUser";
 import {
   getAllHabitsController,
   getHabitController,
@@ -9,30 +10,30 @@ import {
 import { habitType } from "../../types/responseTypes";
 import { insertHabit } from "../../services/habits/insertHabit";
 
-const habitRouter = Router();
+const habitRouter = Router({ mergeParams: true });
 
 //Get all habits
-habitRouter.get(
-  "/user/:user_id/habits",
-  async (req: Request, res: Response) => {
-    const { user_id } = req.params;
-    const result = await getAllHabitsController(Number(user_id));
-    res.json(result);
-  }
-);
+habitRouter.get("/all-habits", async (req: RequestWithUser, res: Response) => {
+  const user_id = req.user?.id;
+  const result = await getAllHabitsController(Number(user_id));
+  res.json(result);
+});
 
 //get habit
-habitRouter.get("/:id", async (req: Request, res: Response) => {
+habitRouter.get("/:id", async (req: RequestWithUser, res: Response) => {
   const { id } = req.params;
-  const { user_id } = req.body;
-  const result = await getHabitController(Number(id), Number(user_id));
+  const user_id = req.user?.id;
+  console.log("REQ REQ", user_id);
+
+  const result = await getHabitController(Number(id), user_id);
   res.json(result);
 });
 
 //update habit
-habitRouter.patch("/:id", async (req: Request, res: Response) => {
+habitRouter.patch("/:id", async (req: RequestWithUser, res: Response) => {
   const { id } = req.params;
-  const { user_id, name, description } = req.body;
+  const { name, description } = req.body;
+  const user_id = req.user?.id;
   const updatedHabit: Partial<habitType> = {};
   if (name !== undefined) updatedHabit.name = name;
   if (description !== undefined) updatedHabit.description = description;
@@ -41,8 +42,10 @@ habitRouter.patch("/:id", async (req: Request, res: Response) => {
 });
 
 //create habit
-habitRouter.post("/", async (req: Request, res: Response) => {
-  const { user_id, name, description } = req.body;
+habitRouter.post("/", async (req: RequestWithUser, res: Response) => {
+  console.log("REQ HEADERS", req.headers.authorization);
+  const { name, description } = req.body;
+  const user_id = req.user?.id;
   const habit: habitType = {
     user_id: user_id,
     name: name,
@@ -53,8 +56,8 @@ habitRouter.post("/", async (req: Request, res: Response) => {
 });
 
 //delete habit
-habitRouter.delete("/:id", async (req: Request, res: Response) => {
-  const { user_id } = req.body;
+habitRouter.delete("/:id", async (req: RequestWithUser, res: Response) => {
+  const user_id = req.user?.id;
   const id = Number(req.params.id);
   const result = await deleteHabitController(id, user_id);
   res.json(result);
