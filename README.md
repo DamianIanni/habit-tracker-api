@@ -160,36 +160,42 @@ To get this project running locally, follow these steps:
 4.  **Database Setup:**
     Create the necessary database and tables in your MySQL server.
 
-```bash
-CREATE TABLE Users (
-id INT AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(100) NOT NULL,
-email VARCHAR(100) NOT NULL UNIQUE,
-password_hash VARCHAR(255) NOT NULL,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
+- **Users table**
 
-```bash
-CREATE TABLE Habits (
-id INT AUTO_INCREMENT PRIMARY KEY,
-user_id INT,
-name VARCHAR(100) NOT NULL,
-description TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
-);
-```
+  ```bash
+  CREATE TABLE Users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+  ```
 
-```bash
-CREATE TABLE Habits_logs (
-id INT AUTO_INCREMENT PRIMARY KEY,
-habit_id INT,
-log_date DATE NOT NULL,
-is_completed TINYINT(1) NOT NULL,
-FOREIGN KEY (habit_id) REFERENCES Habits(id) ON DELETE CASCADE
-);
-```
+- **Habits table**
+
+  ```bash
+  CREATE TABLE Habits (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+  )
+  ```
+
+- **Habits logs table**
+
+  ```bash
+  CREATE TABLE Habits_logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  habit_id INT,
+  log_date DATE NOT NULL,
+  is_completed TINYINT(1) NOT NULL,
+  FOREIGN KEY (habit_id) REFERENCES Habits(id) ON DELETE CASCADE
+  )
+  ```
 
 5.  **Run the application:**
     - **Development Mode:**
@@ -210,27 +216,20 @@ The API should now be running at `http://localhost:<PORT>`.
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Login a user and get a JWT
 - `GET /api/users/:id` - Get user details (requires authentication)
-- `PUT /api/users/:id` - Update user details (requires authentication)
+- `PATCH /api/users/:id` - Update user details (requires authentication)
 - `DELETE /api/users/:id` - Delete user (requires authentication)
 - `GET /api/habits` - Get all habits for the authenticated user
 - `POST /api/habits` - Create a new habit
-- `PUT /api/habits/:id` - Update a habit
+- `PATCH /api/habits/:id` - Update a habit
 - `DELETE /api/habits/:id` - Delete a habit
 - `POST /api/habit-logs` - Log habit completion for a date
 - `GET /api/habit-logs/:habitId` - Get logs for a specific habit
-- `PUT /api/habit-logs/:logId` - Update a habit log
+- `PATCH /api/habit-logs/:logId` - Update a habit log
 - `DELETE /api/habit-logs/:logId` - Delete a habit log
 
 (Note: Adjust endpoint paths based on your actual routing in `src/routes`.)
 
-## Contributing
-
-(Section on how others can contribute - optional)
-
-## License
-
-This project is licensed under the ISC License.
-
 ## Contact
 
-(Your contact information - e.g., LinkedIn, GitHub profile link)
+- [GitHub](https://github.com/DamianIanni)
+- 📧 [damiangussi@gmail.com](mailto:damiangussi@gmail.com)
