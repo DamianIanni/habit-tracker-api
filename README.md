@@ -119,8 +119,8 @@ This API is built as part of a fullstack project to showcase backend development
 The project follows a layered architecture to ensure separation of concerns:
 
 <pre> 
-src/ ├── 
-controllers/ # Handles incoming requests and delegates to services 
+src/ 
+├── controllers/ # Handles incoming requests and delegates to services 
 ├── services/ # Contains business logic and interacts with the database 
 ├── routes/ # Defines API endpoints and links them to controllers 
 ├── db/ # Database connection and configuration 
