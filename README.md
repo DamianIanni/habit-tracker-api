@@ -36,7 +36,7 @@ src/
 ├── middlewares/    # Express middleware for authentication, error handling, etc.
 ├── queries/        # SQL query definitions
 ├── types/          # TypeScript type definitions
-├── utils/          # Helper functions (password hashing, JWT generation, response handling, logging)
+├── utils/          # Helper functions 
 ├── app.ts          # Express application setup
 └── index.ts        # Application entry point
 
