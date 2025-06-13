@@ -118,19 +118,21 @@ This API is built as part of a fullstack project to showcase backend development
 
 The project follows a layered architecture to ensure separation of concerns:
 
-<pre> 
-src/ 
-├── controllers/ # Handles incoming requests and delegates to services 
-├── services/ # Contains business logic and interacts with the database 
-├── routes/ # Defines API endpoints and links them to controllers 
-├── db/ # Database connection and configuration 
-├── middlewares/ # Express middleware for authentication, error handling, etc. 
-├── queries/ # SQL query definitions 
-├── types/ # TypeScript type definitions 
-├── utils/ # Helper functions (password hashing, JWT generation, response handling, logging) 
-├── app.ts # Express application setup 
+<!-- <pre>  -->
+
+src/
+├── controllers/ # Handles incoming requests and delegates to services
+├── services/ # Contains business logic and interacts with the database
+├── routes/ # Defines API endpoints and links them to controllers
+├── db/ # Database connection and configuration
+├── middlewares/ # Express middleware for authentication, error handling, etc.
+├── queries/ # SQL query definitions
+├── types/ # TypeScript type definitions
+├── utils/ # Helper functions (password hashing, JWT generation, response handling, logging)
+├── app.ts # Express application setup
 └── index.ts # Application entry point
-</pre>
+
+<!-- </pre> -->
 
 ## Setup and Installation
 
@@ -138,7 +140,7 @@ To get this project running locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/DamianIanni/habit-tracker-api.git
     cd habit-tracker-api
     ```
 2.  **Install dependencies:**
@@ -146,7 +148,7 @@ To get this project running locally, follow these steps:
     npm install
     ```
 3.  **Set up environment variables:**
-    Create a `.env` file in the root directory based on a `.env.example` (you might need to create one if it doesn't exist) and fill in your database credentials and JWT secret.
+    Create a `.env` file in the root directory based on a `.env.example` and fill in your database credentials and JWT secret.
     ```env
     DB_HOST=your_db_host
     DB_USER=your_db_user
@@ -156,7 +158,39 @@ To get this project running locally, follow these steps:
     PORT=your_api_port # e.g., 3000
     ```
 4.  **Database Setup:**
-    Create the necessary database and tables in your MySQL server. You will need to provide the SQL schema or migration scripts if they exist (mention if they are included or need to be provided separately).
+    Create the necessary database and tables in your MySQL server.
+
+```bash
+CREATE TABLE Users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL UNIQUE,
+password_hash VARCHAR(255) NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+```bash
+CREATE TABLE Habits (
+id INT AUTO_INCREMENT PRIMARY KEY,
+user_id INT,
+name VARCHAR(100) NOT NULL,
+description TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+);
+```
+
+```bash
+CREATE TABLE Habits_logs (
+id INT AUTO_INCREMENT PRIMARY KEY,
+habit_id INT,
+log_date DATE NOT NULL,
+is_completed TINYINT(1) NOT NULL,
+FOREIGN KEY (habit_id) REFERENCES Habits(id) ON DELETE CASCADE
+);
+```
+
 5.  **Run the application:**
     - **Development Mode:**
       ```bash
