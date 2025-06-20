@@ -11,7 +11,7 @@
     "jest-test": "jest --passWithNoTests",
     "test:services:habits": "jest --passWithNoTests src/tests/servicesTest/habits",
     "test:services:users": "jest --passWithNoTests src/tests/servicesTest/users",
-    "test:services:habit_logs": "jest --passWithNoTests src/tests/servicesTest/habit_logs",
+    "test:services:habit_logs": "jest --passWithNoTests src/tests/servicesTest/habitLogs",
     "test:services:auth": "jest --passWithNoTests src/tests/servicesTest/auth"
   },
   "keywords": [],
