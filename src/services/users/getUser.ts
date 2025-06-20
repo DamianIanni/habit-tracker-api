@@ -1,7 +1,7 @@
 import { dbPool } from "../../db";
+import { getUserByIdQuery } from "../../queries/userQueries";
 
 export async function getUser(id: number) {
-  const QUERY = "SELECT name, email FROM User WHERE id = ?";
-  const [result] = await dbPool.execute(QUERY, id);
+  const [result] = await dbPool.execute(getUserByIdQuery, [id]);
   return result;
 }
