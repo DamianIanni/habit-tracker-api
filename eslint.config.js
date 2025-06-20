@@ -11,6 +11,14 @@ module.exports = [
         sourceType: "module",
       },
     },
+    overrides: [
+      {
+        files: ["jest.config.ts"],
+        parserOptions: {
+          project: null, // desactiva el type-checking para este archivo
+        },
+      },
+    ],
     plugins: {
       "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
       prettier: eslintPluginPrettier,
