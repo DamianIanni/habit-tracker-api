@@ -119,8 +119,6 @@ The API should now be running at `http://localhost:<PORT>`.
 
 ## API Endpoints
 
-(Provide a brief overview of key endpoints. For a full list and details, consider linking to API documentation like Swagger if available, or list the main routes here.)
-
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Login a user and get a JWT
 - `GET /api/users/:id` - Get user details (requires authentication)
@@ -139,8 +137,6 @@ The API should now be running at `http://localhost:<PORT>`.
 
 ## Upcoming Features
 
-- Integration tests with Jest + Supertest
-- Unit tests for core services
 - CI setup for auto-testing (GitHub Actions)
 
 ## Contact
