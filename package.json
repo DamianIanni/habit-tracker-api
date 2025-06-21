@@ -13,7 +13,12 @@
     "test:services:users": "jest --passWithNoTests src/tests/servicesTest/users",
     "test:services:habit_logs": "jest --passWithNoTests src/tests/servicesTest/habitLogs",
     "test:services:auth": "jest --passWithNoTests src/tests/servicesTest/auth",
-    "test:services:helpers": "jest --passWithNoTests src/tests/servicesTest/helpers"
+    "test:services:helpers": "jest --passWithNoTests src/tests/servicesTest/helpers",
+    "test:controllers:habits": "jest --passWithNoTests src/tests/controllerTests/habits",
+    "test:controllers:users": "jest --passWithNoTests src/tests/controllerTests/users",
+    "test:controllers:habit_logs": "jest --passWithNoTests src/tests/controllerTests/habitLogs",
+    "test:controllers:auth": "jest --passWithNoTests src/tests/controllerTests/auth",
+    "test:controllers:helpers": "jest --passWithNoTests src/tests/controllerTests/helpers"
   },
   "keywords": [],
   "author": "",
