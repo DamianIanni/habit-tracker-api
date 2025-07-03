@@ -68,6 +68,8 @@ To get this project running locally, follow these steps:
 4.  **Database Setup:**
     Create the necessary database and tables in your MySQL server.
 
+    📊 [See the rest of the necessary queries setup here](./src/docs/ComplexSqlQueries.md)
+
 - **Users table**
 
   ```bash
