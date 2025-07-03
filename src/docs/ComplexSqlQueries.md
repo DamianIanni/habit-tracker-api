@@ -6,7 +6,7 @@ Returns the longest streak of consecutive completed logs per habit.
 
 ### Type
 
-📄 SQL View
+SQL View
 
 ### Notes
 
@@ -15,8 +15,6 @@ Meant to be filtered by user_id from the backend using:
 ```sql
 SELECT * FROM longerStreak WHERE user_id = ?
 ```
-
-⸻
 
 ```sql
 CREATE VIEW longerStreak AS
@@ -43,8 +41,6 @@ FROM GroupedLogs
 GROUP BY habit_id;
 ```
 
-⸻
-
 ## Active Streak by Habit
 
 ### What it does
@@ -53,13 +49,11 @@ Returns the current active streak (consecutive days ending today) of each habit.
 
 ### Type
 
-📄 SQL View
+SQL View
 
 ### Notes
 
 Only includes streaks ending on the current date (CURDATE()).
-
-⸻
 
 ```sql
 CREATE VIEW activeStreak AS
@@ -86,8 +80,6 @@ FROM ActiveStreak
 WHERE CURDATE() = last_log_date AND days_streak > 1;
 ```
 
-⸻
-
 ## Habits with High Completion in Last 30 Days
 
 ### What it does
@@ -96,7 +88,7 @@ Returns completion percentage for habits completed at least 10 times in the last
 
 ### Type
 
-📄 SQL View
+SQL View
 
 ### Notes
 
@@ -105,8 +97,6 @@ Filter by user_id from backend:
 ```sql
 SELECT * FROM habits_30_days WHERE user_id = ?
 ```
-
-⸻
 
 ```sql
 CREATE VIEW habits_30_days AS
@@ -127,8 +117,6 @@ SELECT * FROM logs_30_days
 ORDER BY completion_percentage DESC;
 ```
 
-⸻
-
 ## Last 15 Days Completion Percent
 
 ### What it does
@@ -137,9 +125,7 @@ Returns completion percentage for each habit in the last 15 days, where the habi
 
 ## Type
 
-📄 SQL View
-
-⸻
+SQL View
 
 ```sql
 CREATE VIEW last15DaysCompletionHabitPercent AS
@@ -161,8 +147,6 @@ SELECT * FROM first_table
 ORDER BY completion_percent DESC;
 ```
 
-⸻
-
 ## Users with 3+ Habits and Active Logging
 
 ### What it does
@@ -171,9 +155,7 @@ Returns users who have at least 3 habits and at least 5 logs in last 15 days for
 
 ### Type
 
-📄 SQL View
-
-⸻
+SQL View
 
 ```sql
 CREATE VIEW user_with_3_habits AS
@@ -198,5 +180,3 @@ HAVING COUNT(DISTINCT H.id) >= 3
 )
 SELECT * FROM table_2;
 ```
-
-⸻
