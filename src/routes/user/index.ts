@@ -5,6 +5,12 @@ import {
 } from "../../controllers/users";
 import { RequestWithUser } from "../../types/requestWithUser";
 
+import { validateSchemaMiddleware } from "../../middlewares/schemaMiddlewares/validateSchemaMiddleware";
+import { updateUserSchema } from "../../validations/user";
+import { SourceToValidate } from "../../types/joiTypes";
+
+const SOURCE_BODY: SourceToValidate = "body";
+
 const userRouter = Router();
 
 //Modify user
@@ -35,17 +41,21 @@ const userRouter = Router();
  *       401:
  *         description: Unauthorized
  */
-userRouter.patch("/", async (req: RequestWithUser, res: Response) => {
-  const { name, password } = req.body;
-  const updatedFields: { name?: string; password?: string } = {};
-  if (name !== undefined) updatedFields.name = name;
-  if (password !== undefined) updatedFields.password = name;
+userRouter.patch(
+  "/",
+  validateSchemaMiddleware(updateUserSchema, SOURCE_BODY),
+  async (req: RequestWithUser, res: Response) => {
+    const { name, password } = req.body;
+    const updatedFields: { name?: string; password?: string } = {};
+    if (name !== undefined) updatedFields.name = name;
+    if (password !== undefined) updatedFields.password = password;
 
-  const id = req.user?.id;
+    const id = req.user?.id;
 
-  const result = await updateUserController(id, updatedFields);
-  res.json(result);
-});
+    const result = await updateUserController(id, updatedFields);
+    res.json(result);
+  }
+);
 
 //Delete user
 /**

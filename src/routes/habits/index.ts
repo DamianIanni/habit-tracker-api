@@ -10,6 +10,14 @@ import {
 import { habitType } from "../../types/responseTypes";
 import { insertHabit } from "../../services/habits/insertHabit";
 
+import { validateSchemaMiddleware } from "../../middlewares/schemaMiddlewares/validateSchemaMiddleware";
+import { createHabitSchema, updateHabitSchema } from "../../validations/habit";
+import { idInParamsSchema } from "../../validations/params";
+import { SourceToValidate } from "../../types/joiTypes";
+
+const SOUCE_BODY: SourceToValidate = "body";
+const SOUCE_PARAMS: SourceToValidate = "params";
+
 const habitRouter = Router({ mergeParams: true });
 
 //Get all habits
@@ -57,13 +65,17 @@ habitRouter.get("/all-habits", async (req: RequestWithUser, res: Response) => {
  *       401:
  *         description: Unauthorized
  */
-habitRouter.get("/:id", async (req: RequestWithUser, res: Response) => {
-  const { id } = req.params;
-  const user_id = req.user?.id;
+habitRouter.get(
+  "/:id",
+  validateSchemaMiddleware(idInParamsSchema, SOUCE_PARAMS),
+  async (req: RequestWithUser, res: Response) => {
+    const { id } = req.params;
+    const user_id = req.user?.id;
 
-  const result = await getHabitController(Number(id), user_id);
-  res.json(result);
-});
+    const result = await getHabitController(Number(id), user_id);
+    res.json(result);
+  }
+);
 
 //update habit
 /**
@@ -99,16 +111,25 @@ habitRouter.get("/:id", async (req: RequestWithUser, res: Response) => {
  *       401:
  *         description: Unauthorized
  */
-habitRouter.patch("/:id", async (req: RequestWithUser, res: Response) => {
-  const { id } = req.params;
-  const { name, description } = req.body;
-  const user_id = req.user?.id;
-  const updatedHabit: Partial<habitType> = {};
-  if (name !== undefined) updatedHabit.name = name;
-  if (description !== undefined) updatedHabit.description = description;
-  const result = await updateHabitController(updatedHabit, Number(id), user_id);
-  res.json(result);
-});
+habitRouter.patch(
+  "/:id",
+  validateSchemaMiddleware(idInParamsSchema, SOUCE_PARAMS),
+  validateSchemaMiddleware(updateHabitSchema, SOUCE_BODY),
+  async (req: RequestWithUser, res: Response) => {
+    const { id } = req.params;
+    const { name, description } = req.body;
+    const user_id = req.user?.id;
+    const updatedHabit: Partial<habitType> = {};
+    if (name !== undefined) updatedHabit.name = name;
+    if (description !== undefined) updatedHabit.description = description;
+    const result = await updateHabitController(
+      updatedHabit,
+      Number(id),
+      user_id
+    );
+    res.json(result);
+  }
+);
 
 //create habit
 /**
@@ -140,17 +161,21 @@ habitRouter.patch("/:id", async (req: RequestWithUser, res: Response) => {
  *       401:
  *         description: Unauthorized
  */
-habitRouter.post("/", async (req: RequestWithUser, res: Response) => {
-  const { name, description } = req.body;
-  const user_id = req.user?.id;
-  const habit: habitType = {
-    user_id: user_id,
-    name: name,
-    description: description,
-  };
-  const result = await insertHabit(habit);
-  res.json(result);
-});
+habitRouter.post(
+  "/",
+  validateSchemaMiddleware(createHabitSchema, SOUCE_BODY),
+  async (req: RequestWithUser, res: Response) => {
+    const { name, description } = req.body;
+    const user_id = req.user?.id;
+    const habit: habitType = {
+      user_id: user_id,
+      name: name,
+      description: description,
+    };
+    const result = await insertHabit(habit);
+    res.json(result);
+  }
+);
 
 //delete habit
 /**
@@ -175,11 +200,15 @@ habitRouter.post("/", async (req: RequestWithUser, res: Response) => {
  *       401:
  *         description: Unauthorized
  */
-habitRouter.delete("/:id", async (req: RequestWithUser, res: Response) => {
-  const user_id = req.user?.id;
-  const id = Number(req.params.id);
-  const result = await deleteHabitController(id, user_id);
-  res.json(result);
-});
+habitRouter.delete(
+  "/:id",
+  validateSchemaMiddleware(idInParamsSchema, SOUCE_PARAMS),
+  async (req: RequestWithUser, res: Response) => {
+    const user_id = req.user?.id;
+    const id = Number(req.params.id);
+    const result = await deleteHabitController(id, user_id);
+    res.json(result);
+  }
+);
 
 export default habitRouter;

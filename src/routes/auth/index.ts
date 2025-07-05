@@ -4,6 +4,11 @@ import { UserInputType } from "../../types/userType";
 import { insertUserController, loginController } from "../../controllers/auth";
 import { userExistMiddleware } from "../../middlewares/loginMiddlewares/userExistsMiddleware";
 import { passwordCheckingMiddleware } from "../../middlewares/loginMiddlewares/passwordCheckingMiddleware";
+import { SourceToValidate } from "../../types/joiTypes";
+import { validateSchemaMiddleware } from "../../middlewares/schemaMiddlewares/validateSchemaMiddleware";
+import { createUserSchema, loginUserSchema } from "../../validations/user";
+
+const SOURCE_BODY: SourceToValidate = "body";
 
 const authRouter = Router();
 
@@ -38,16 +43,20 @@ const authRouter = Router();
  */
 
 //Create user
-authRouter.post("/register", async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  const user: UserInputType = {
-    name: name,
-    email: email,
-    password: password,
-  };
-  const result = await insertUserController(user);
-  res.status(201).json(result);
-});
+authRouter.post(
+  "/register",
+  validateSchemaMiddleware(createUserSchema, SOURCE_BODY),
+  async (req: Request, res: Response) => {
+    const { name, email, password } = req.body;
+    const user: UserInputType = {
+      name: name,
+      email: email,
+      password: password,
+    };
+    const result = await insertUserController(user);
+    res.status(201).json(result);
+  }
+);
 
 //Login
 /**
@@ -88,6 +97,7 @@ authRouter.post("/register", async (req: Request, res: Response) => {
  */
 authRouter.post(
   "/login",
+  validateSchemaMiddleware(loginUserSchema, SOURCE_BODY),
   userExistMiddleware,
   passwordCheckingMiddleware,
   loginController
